@@ -1,3 +1,3 @@
 export default {
-  baseURL: "http://localhost:7003"
+  baseURL: "https://www.amazon.com",
 };
