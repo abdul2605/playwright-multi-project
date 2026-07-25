@@ -1,14 +1,16 @@
 import { expect } from '@playwright/test';
-import { DashBoard } from '../Pages/dash-board';
 import { test } from '../fixture/app.fixture';
+
+import { admin } from "../test-data/LoginTestData";
 
 test.describe('OrangeHRM Tests', () => {
     test('Login and navigate to Admin', async ({ page, homePage, dashBoard }) => {
-        await page.goto('/');
-        console.log(page.url());
+        // await page.goto('/');
 
-        await homePage.login('Admin', 'admin123');
-
+        // await homePage.navigateTo('/web/index.php/auth/login');
+        // console.log('Navigated to login page'+await homePage.getCurrentUrl());
+        // await homePage.login(admin.username, admin.password);
+        await homePage.navigateTo('web/index.php/dashboard/index');
         await dashBoard.clickAdmin();
 
         await expect(page).toHaveURL(/.*admin/);

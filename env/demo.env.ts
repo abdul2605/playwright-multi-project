@@ -1,5 +1,5 @@
 export default {
-  baseURL: "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login",
+  baseURL: "https://opensource-demo.orangehrmlive.com",
   username: "Admin",
   password: "admin123"
 };

@@ -21,7 +21,8 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
-   // baseURL: process.env.PREPROD_URL || demo.baseURL,
+    // baseURL: process.env.PREPROD_URL || demo.baseURL,
+      baseURL: "https://opensource-demo.orangehrmlive.com",
 
     /* Run tests with browser UI visible. */
     headless: false,
@@ -34,7 +35,14 @@ export default defineConfig({
   projects: [
     {
       name: "demo",
-      use: { ...devices["Desktop Chrome"], baseURL: demo.baseURL },
+      dependencies: ["setup"],
+
+      use: {
+        ...devices["Desktop Chrome"],
+        baseURL: demo.baseURL,
+        storageState: "playwright/.auth/auth.json",
+      },
+
       metadata: {
         username: demo.username,
         password: demo.password
@@ -50,8 +58,22 @@ export default defineConfig({
       name: "env_variable",
       use: { ...devices["Desktop Chrome"], baseURL: process.env.PREPROD_URL },
     },
+    {
+      name: "setup",
+      testMatch: /.*\.setup\.ts/,
+    },
+    {
+      name: "storageState",
+      dependencies: ["setup"],
 
-    
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: "playwright/.auth/auth.json",
+      },
+
+    }
+
+
   ],
 
 });

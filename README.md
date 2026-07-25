@@ -1,8 +1,23 @@
 ## Don't forget to give a :star: to make the project popular.
 
-## :question: What is this Repository about?
+## :question: What is this repository about?
 
-- This repo has example code for running Web Automation Tests using Playwright with TypeScript.
+This repository contains a Playwright + TypeScript automation framework for UI testing. It includes example tests, page object models, fixtures, and environment-based configuration for running browser tests against demo and preprod setups.
+
+## Current project highlights
+
+- Playwright test runner with TypeScript
+- Page object pattern under the Pages folder
+- Reusable fixtures in the fixture folder
+- Environment configuration stored in the env folder
+- HTML test reporting enabled in Playwright
+
+## Prerequisites
+
+Make sure the following are installed on your machine:
+
+- Node.js
+- npm
 
 ## Setup
 
@@ -18,41 +33,51 @@ npm install
 npx playwright install
 ```
 
-3. (Optional) Create a root `.env` file for the `env_variable` project:
+3. Optional: create a root `.env` file for the `env_variable` project:
 
 ```env
 PREPROD_URL=https://example.com
 ```
 
+## Project structure
+
+- `tests/` — test specifications such as `tests/orange.spec.ts`
+- `Pages/` — page object classes
+- `fixture/` — shared fixtures and setup helpers
+- `modal/` — supporting model or helper classes
+- `test-data/` — test input data
+- `env/` — environment configuration files
+- `playwright.config.ts` — Playwright configuration and project definitions
+
 ## Environment configuration
 
-This project supports three Playwright projects with environment configuration:
+The project currently supports three Playwright projects:
 
 - `demo` — uses `env/demo.env.ts`
 - `preprod` — uses `env/preprod.env.ts`
 - `env_variable` — uses `process.env.PREPROD_URL` from a root `.env` file
 
-`playwright.config.ts` loads environment variables with `dotenv.config()` so create a `.env` file in the repository root when using `env_variable`.
-
-Example `.env` contents:
-
-```env
-PREPROD_URL=https://example.com
-```
-
 ## Run tests
 
-Use Playwright test commands and choose the project:
+Run the available npm scripts:
+
+```bash
+npm test
+npm run test:headed
+npm run test:debug
+npm run test:report
+```
+
+Run a specific project or spec directly:
 
 ```bash
 npx playwright test --project=demo
 npx playwright test --project=preprod
 npx playwright test --project=env_variable
-Specific Test
 npx playwright test tests/orange.spec.ts --project=demo
 ```
 
-To keep the browser open for debugging, run with Playwright debug mode:
+Debug tests interactively:
 
 ```bash
 PWDEBUG=1 npx playwright test --project=demo
@@ -62,6 +87,6 @@ npx playwright test --project=demo --debug
 
 ## Notes
 
-- `env/demo.env.ts` provides `baseURL`, `username`, and `password` for the `demo` project.
-- `env/preprod.env.ts` provides `baseURL` for the `preprod` project.
-- `env_variable` reads `PREPROD_URL` from `.env` and sets it as the Playwright `baseURL`.
+- The `demo` environment includes a base URL, username, and password.
+- The `preprod` environment uses its own base URL.
+- The `env_variable` project reads `PREPROD_URL` from `.env` and sets it as the Playwright base URL.
